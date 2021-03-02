@@ -15,25 +15,29 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "RepositoryC")
+import Orders.Order;
+
+@XmlRootElement (name = "Client")
 @XmlAccessorType (XmlAccessType.FIELD)
 public class RepositoryC implements Serializable{
 	private static RepositoryC _instance;
 	private static RepositoryUtil u=new RepositoryUtil();
-	@XmlElement(name = "employee")
+	@XmlElement(name = "cliente")
 	private static List<Client> clientes=new ArrayList<>();
 
 	
-	public void RepositoryC(){}
+	public RepositoryC(){}
 	
 	public static RepositoryC getInstance(){
-		importar();
         if(_instance==null){
             _instance = new RepositoryC();
         }
         return _instance;
     }
 	
+	public void setClientes(List<Client> c) {
+		clientes=c;
+	}
 	public List<Client> getAllClients(){
 		return clientes;
 	}
@@ -71,9 +75,7 @@ public class RepositoryC implements Serializable{
 	public boolean addClient(Client c){
 		boolean result=false;
 		if (c!=null && !clientes.contains(c)) {
-			System.out.println("introducido");
 			clientes.add(c);
-			export();
 			
 		}
 		return result;
@@ -86,7 +88,6 @@ public class RepositoryC implements Serializable{
 					for (Client c : clientes) {
 						if (c.getDni().equals(dni)) {
 							clientes.remove(clientes.indexOf(c));
-							u.exportClients(this.clientes);
 							result=true;
 						}
 					}
@@ -108,12 +109,7 @@ public class RepositoryC implements Serializable{
 			}
 		return result;
 	}
-	public void export() {
-		u.saveFile(_instance);
-	}
-	public static void importar() {
-		clientes=u.loadFile();
-	}
+	
 	
 	
 

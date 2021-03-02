@@ -1,6 +1,7 @@
 package Orders;
 
 import java.io.Serializable;
+import java.net.CookieManager;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -8,33 +9,36 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import Clients.RepositoryC;
 import Utils.RepositoryUtil;
 
+@XmlRootElement(name = "RepositoryO")
+@XmlAccessorType (XmlAccessType.FIELD)
 public class RepositoryO implements Serializable{
-	private List<Order> comandas=new ArrayList<>();
-	private static RepositoryO instance;
-	RepositoryUtil u=new RepositoryUtil();
+	private static RepositoryO _instance;
 	
+	@XmlElement(name = "order")
+	private List<Order> comandas=new ArrayList<>();	
 	
 	
 	private RepositoryO() {
-		try {
-			comandas=u.importOrders();
-		} catch (ClassNotFoundException e) {
-			// TODO Bloque catch generado automáticamente
-			e.printStackTrace();
-		}
+		//importar();
 	}
 	public static RepositoryO getInstance(){
-        if(instance==null){
-            instance = new RepositoryO();
+        if(_instance==null){
+            _instance = new RepositoryO();
         }
-        return instance;
+        return _instance;
     }
-
+	public void setcomandas(List<Order> c) {
+		comandas=c;
+	}
 	public List<Order> getAllOrders() {
-
 		return comandas;
 	}
 	
@@ -107,10 +111,9 @@ public class RepositoryO implements Serializable{
 	}
 	public boolean addOrder(Order o) {
 		boolean result=false;
-		if (o!=null) {
+		if (o!=null && !comandas.contains(o)) {
 			comandas.add(o);
-			o.getClient().addOrder(o);
-			u.exportOrders(comandas);
+			o.getClient().addOrder(o.getId());
 		}
 		return result;
 	}
@@ -118,10 +121,10 @@ public class RepositoryO implements Serializable{
 		boolean result=false;
 		if (o!=null) {
 			comandas.remove(o);
-			o.getClient().deleteOrder(o);
-			u.exportOrders(comandas);
+			o.getClient().deleteOrder(o.getId());
 		}
 		return result;
 	}
-
+	
+	
 }

@@ -13,9 +13,9 @@ import Utils.RepositoryUtil;
 @XmlAccessorType (XmlAccessType.FIELD)
 public class Client extends Person implements Serializable{
 	private List<String> address=new ArrayList<>();
-	private List<Order> orders=new ArrayList<>();
+	private List<Integer> orders=new ArrayList<>();
 	private int points=0;
-	public Client() {}
+	private Client() {}
 	RepositoryUtil u= new RepositoryUtil();
 
 	public Client(String dni, String name, int age,String addres) {
@@ -29,7 +29,7 @@ public class Client extends Person implements Serializable{
 	public List<String> getAddress() {
 		return address;
 	}
-	public List<Order> getOrders() {
+	public List<Integer> getOrders() {
 		return orders;
 	}
 	public int getPoints() {
@@ -40,14 +40,14 @@ public class Client extends Person implements Serializable{
 	}
 
 	//Metodos para las lista
-	public boolean addOrder(Order o) {
+	public boolean addOrder(Integer o) {
 		boolean result=false;
 		if (o!=null) {
 			orders.add(o);
 		}
 		return result;
 	}
-	public boolean deleteOrder(Order o) {
+	public boolean deleteOrder(Integer o) {
 		boolean result=false;
 		if (o!=null) {
 			orders.remove(o);

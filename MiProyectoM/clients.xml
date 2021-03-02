@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RepositoryC>
-    <employee>
-        <dni>31009229p</dni>
-        <name>juan</name>
-        <age>22</age>
-        <address>c/bonifacio</address>
-        <points>0</points>
-        <u/>
-    </employee>
-    <employee>
+<Client>
+    <cliente>
         <dni>1122334455p</dni>
         <name>pepe</name>
         <age>22</age>
         <address>C/bonifacio</address>
         <points>0</points>
         <u/>
-    </employee>
-</RepositoryC>
+    </cliente>
+</Client>

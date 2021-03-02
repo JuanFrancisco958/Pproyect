@@ -3,12 +3,27 @@ package Products;
 import java.util.ArrayList;
 import java.util.List;
 
-import Interfacez.IProduct;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+
+/**
+ * Repositorio de productos.
+ * @author JF
+ *
+ */
+@XmlRootElement(name = "Order")
+@XmlAccessorType (XmlAccessType.FIELD)
 public class Repository {
+	@XmlElement(name = "carta")
+	//Atributo.
 		private List<Product> carta=new ArrayList<>();
 		
-
+		/**
+		 * Creacion de la carta de productos(Bebidas y comidas).
+		 */
 		public Repository() {
 			carta.add(new Drink(1,"Fanta", 1.2, true, false));
 			carta.add(new Drink(2,"Raddler", 1.1, true, true));
@@ -19,11 +34,17 @@ public class Repository {
 			System.out.println("Numero de Productos: "+carta.size());
 		}
 
-		
+		/**
+		 * Obtener todos los productos.
+		 * @return Lista de productos.
+		 */
 		  public List<Product> getAllProducts() {
 			  return carta;
 		  }
-	
+		  /**
+		   * Obtener todas las bebidas.
+		   * @return Lista de bebidas.
+		   */
 		  public List<Drink> getAllDrinks() {
 			  List<Drink> result=new ArrayList<>();
 			  for (Product item : carta) {
@@ -34,7 +55,10 @@ public class Repository {
 			}
 		    return result;
 		  }
-	
+		  /**
+		   * Obtener todas las comidas.
+		   * @return Lista de comidas.
+		   */
 		  public List<Food> getAllFoods() {
 			  List<Food> result=new ArrayList<>();
 			  for (Product item : carta) {
@@ -45,7 +69,10 @@ public class Repository {
 			}
 		    return result;
 		  }
-	
+		  /**
+		   * Obtener bebidas no alcoholicas.
+		   * @return Lista de bebidas.
+		   */
 		  public List<Drink> getAllNoAlcoholicDrinks() {
 			  List<Drink> result=new ArrayList<>(); 
 			  for (Drink item : getAllDrinks()) {
@@ -56,7 +83,10 @@ public class Repository {
 			}
 		    return result;
 		  }
-	
+		  /**
+		   * Obtener bebidas alcoholicas.
+		   * @return Lista de bebidas.
+		   */
 		  public List<Drink> getAllAlcoholicsDrinks() {
 			  List<Drink> result=new ArrayList<>(); 
 			  for (Drink item : getAllDrinks()) {
@@ -67,7 +97,10 @@ public class Repository {
 			  }
 		    return result;
 		  }
-	
+		  /**
+		   * Obtener comidas veganas.
+		   * @return Lista de comidas.
+		   */
 		  public List<Food> getAllForVeganFood() {
 			  List<Food> result=new ArrayList<>(); 
 			  for (Food item : getAllFoods()) {
@@ -78,12 +111,22 @@ public class Repository {
 			  }
 		    return result;
 		  }
-	
+		  /**
+		   * Obtener lista de productos con Bundle.
+		   * @return Lista de productos.
+		   */
 		  public List<Product> getBundleProducts(Product p) {
 		    // TODO Auto-generated method stub
+			  
+			  
+			  
 		    return null;
 		  }
-	
+		  /**
+		   * Obtener producto por su nombre.
+		   * @param name Nombre del producto.
+		   * @return Un producto.
+		   */
 		  public Product searchProduct(String name) {
 			  Product result = null;
 			  for (Product item : carta) {
@@ -94,21 +137,34 @@ public class Repository {
 			  }
 		    return result;
 		  }
-	
+		  /**
+		   * Obtención de bebida por nombre.
+		   * @param name Nombre de la benida.
+		   * @return Una bebida.
+		   */
 		  public Drink searchDrinks(String name) {
 		    Drink result=(Drink)searchProduct(name);
 		    return result;
 		  }
-	
-		  public Food searchFoods(String name) {
+		  /**
+		   * Obtención de comida por nombre.
+		   * @param name Nombre de la comida.
+		   * @return Una comida.
+		   */
+		  public Food searchFood(String name) {
 		    Food result=(Food)searchProduct(name);
 		    return result;
 		  }
+		  /**
+		   * Obtener tamaño de la carta.
+		   * @return Entero del tamaño de la carta.
+		   */
 		  public int getSize() {
 			  int result=carta.size();
 			  return result;
 		  }
 
+		//Método para imprimir la carta.
 		@Override
 		public String toString() {
 			return "Repository [carta=" + carta + "]";

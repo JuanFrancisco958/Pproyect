@@ -20,10 +20,19 @@ import javax.xml.bind.Unmarshaller;
 import Clients.Client;
 import Clients.RepositoryC;
 import Orders.Order;
+import Orders.RepositoryO;
 import Products.Repository;
-
+/**
+ * Repositorio sobre metodos de importación y exportación de datos en archivo xml.
+ * @author JF
+ *
+ */
 public class RepositoryUtil{
-	public void saveFile(RepositoryC r) {
+	/**
+	 * Método de guardado de clientes en .xml .
+	 * @param r datos a guardar.
+	 */
+	public static void saveFile(RepositoryC r) {
 		//marshaling
 		JAXBContext jaxbContext;
 		try {
@@ -40,7 +49,11 @@ public class RepositoryUtil{
 			e.printStackTrace();
 		}	
 	}
-	public List<Client> loadFile() {
+	/**
+	 * Método para importar clientes.
+	 * @return devuelve una lista de clientes.
+	 */
+	public static List<Client> loadFile() {
 		List<Client> result=new ArrayList<Client>();
 		JAXBContext jaxbContext;
 		try {
@@ -54,59 +67,43 @@ public class RepositoryUtil{
 		}
 		return result;
 	}
-	
-	
-	
-		public void exportClients(List<Client> clientes) {
+	/**
+	 * Método de guardado de ordenes en .xml .
+	 * @param r datos a guardar.
+	 */
+	public static void saveFileO(RepositoryO r) {
+		//marshaling
+		JAXBContext jaxbContext;
 		try {
-			FileOutputStream f=new FileOutputStream("Clients.txt");
-			ObjectOutputStream of=new ObjectOutputStream(f);
-			of.writeObject(clientes); 
-		} catch (FileNotFoundException e) {
+			jaxbContext = JAXBContext.newInstance(RepositoryO.class);
+		    Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+		    jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		     
+		    //Marshal the list in console
+		    //jaxbMarshaller.marshal(_instance, System.out);
+		     
+		    //Marshal the employees list in file
+		    jaxbMarshaller.marshal(r, new File("orders.xml"));
+		} catch (JAXBException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
+		}	
+	}
+	/**
+	 * Método para importar ordenes.
+	 * @return devuelve una lista de ordenes.
+	 */
+	public static List<Order> loadFileO() {
+		List<Order> result=new ArrayList<Order>();
+		JAXBContext jaxbContext;
+		try {
+			jaxbContext = JAXBContext.newInstance(RepositoryO.class);
+		    Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+		    //We had written this file in marshalling example
+		    RepositoryO newR = (RepositoryO) jaxbUnmarshaller.unmarshal( new File("orders.xml"));
+		    result=(List<Order>)newR.getAllOrders();
+		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
-	}
-	public List<Client> importClients() throws ClassNotFoundException {
-		List<Client> result=new ArrayList<>();
-		try {
-			FileInputStream fi=new FileInputStream("Clients.txt");
-			ObjectInputStream iof=new ObjectInputStream(fi);
-			result=(List) iof.readObject();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		};
-		return result;
-	}
-	public void exportOrders(List<Order> comandas) {
-		try {
-			FileOutputStream f=new FileOutputStream("Orders.txt");
-			ObjectOutputStream of=new ObjectOutputStream(f);
-			of.writeObject(comandas);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	public List<Order> importOrders() throws ClassNotFoundException {
-		List<Order> result=new ArrayList<>();
-		try {
-			FileInputStream fi=new FileInputStream("Orders.txt");
-			ObjectInputStream iof=new ObjectInputStream(fi);
-			result=(List) iof.readObject();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		};
 		return result;
 	}
 	
