@@ -31,7 +31,6 @@ public class Repository {
 			carta.add(new Food(4,"Durum", 1, false, false));
 			carta.add(new Food(5, "Pizza Vegana", 4.5, true, true));
 			carta.add(new Food(6,"Kebah", 1.5, true, false));
-			System.out.println("Numero de Productos: "+carta.size());
 		}
 
 		/**
