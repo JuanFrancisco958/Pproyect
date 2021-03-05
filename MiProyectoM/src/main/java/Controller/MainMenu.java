@@ -1,34 +1,33 @@
 package Controller;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Scanner;
 
 import Clients.Client;
 import Clients.RepositoryC;
 import Interfacez.IMainMenuController;
 import Orders.Order;
 import Orders.RepositoryO;
-import Products.Drink;
 import Products.Repository;
 import Utils.GUI;
-import Utils.RepositoryUtil;
 import Vista.Syso;
 
 public class MainMenu implements IMainMenuController{
 
 	public static void main(String[] args) throws ClassNotFoundException  {
-		Repository carta=new Repository();
+		//Repository carta=new Repository();
 		RepositoryC clientes=RepositoryC.getInstance();
 		RepositoryO comandas=RepositoryO.getInstance();
 		GUI.importarC(clientes);
 		GUI.importarO(comandas);
 		
-		//clientes.addClient(new Client("1122334455p", "pepe", 22, "C/bonifacio"));
-		//comandas.addOrder(new Order(1,clientes.searchClient("1122334455p"), 4, "C/Bonifacio", false, true));
-		//comandas.addOrder(new Order(clientes.searchClient("1122334455p"), 1, 1, "C/Bonifacio", false, true));
+
+		//clientes.addClient(new Client("31009229P", "juan", 19, "C/bonifacio"));
+		//comandas.getAllOrders().get(comandas.getAllOrders().size()-1).getId()+1;
+		//comandas.addOrder(new Order(clientes.searchClient("31009229P"), 2, 2, "C/Bonifacio", false, true));
 		clientes.getAllClients().forEach(item->System.out.println(item));
 		comandas.getAllOrders().forEach(item->System.out.println(item));
 		
+		/*GUI.exportarC(clientes);
+		GUI.exportarO(comandas);*/
 		//run();
 	}
 	public static void run() {
@@ -48,13 +47,13 @@ public class MainMenu implements IMainMenuController{
 			menuNuevoPedido();
 			break;
 		case 3:
-			u.menuPedidos();
+			menuPedidos();
 			break;
 		case 4:
-			u.menuClientes();
+			menuClientes();
 			break;
 		case 5:
-			u.menuFinanzas();
+			menuFinanzas();
 			break;
 		case 6:
 			u.saveAllAndClose();
@@ -100,34 +99,31 @@ public class MainMenu implements IMainMenuController{
 	public static void menuNuevoPedido() {
 		Syso.menuNuevoPedido();
 		MainMenu u=new MainMenu();
+		Repository carta=new Repository();
 		RepositoryC c=RepositoryC.getInstance();
+		RepositoryO o=RepositoryO.getInstance();
 		
 		switch (GUI.getint("")) {
 		case 1:
-			u.newOrder(c.searchClient(GUI.getString("Introduce el dni:")), LocalDate.now());
+			u.newOrder(c.searchClient(GUI.getDni()), LocalDate.now());
 			break;
 		case 2:
 			u.newClient();
+			u.newOrder(c.searchClient(GUI.getDni()), LocalDate.now());
 			break;
 		case 3:
-			
+			o.getAllOrders().get(o.getAllOrders().size()-1).addProduct(carta.searchProduct("Introduce el id del producto").getId());
 			break;
 		case 4:
-			
+			GUI.exportarO(o);
 			break;
 		case 5:
-			
+			o.getAllOrders().get(o.getAllOrders().size()-1).getTotal();
 			break;
 		case 6:
-			
+			u.deleteOrder(c.searchClient(GUI.getDni()));
 			break;
-		case 7:
-			
-			break;
-		case 8:
-			
-			break;
-		case 9:menuPrincipal();
+		case 7:menuPrincipal();
 			break;
 
 		default:menuPrincipal();
@@ -150,7 +146,7 @@ public class MainMenu implements IMainMenuController{
 			u.viewOrdersPendingDelivered();
 			break;
 		case 4:
-			u.deleteOrder(c.searchClient(GUI.getString("Introduce dni:")));
+			u.deleteOrder(c.searchClient(GUI.getDni()));
 			break;
 		case 5:
 			menuPrincipal();
@@ -173,7 +169,7 @@ public class MainMenu implements IMainMenuController{
 			u.newClient();
 			break;
 		case 3:
-			
+			c.searchClient(GUI.getDni()).setAge(GUI.getAge());
 			break;
 		case 4:
 			GUI.exportarC(c);
@@ -189,7 +185,6 @@ public class MainMenu implements IMainMenuController{
 	public static void menuFinanzas() {
 		Syso.menuFinanzas();
 		MainMenu u=new MainMenu();
-		RepositoryC c=RepositoryC.getInstance();
 		
 		switch (GUI.getint("")) {
 		case 1:
@@ -217,7 +212,7 @@ public class MainMenu implements IMainMenuController{
 	public void newClient() {
 		RepositoryC c=RepositoryC.getInstance();
 		try {
-			c.addClient(new Client(GUI.getString("Introduce el dni:"), GUI.getString("Introduce el nombre:"), GUI.getint("Introduce edad:"), GUI.getString("Introduce direccion:")));
+			c.addClient(new Client(GUI.getDni(), GUI.getString("Introduce el nombre:"), GUI.getAge(), GUI.getString("Introduce direccion:")));
 		} catch (Exception e) {
 			Syso.print("Error al crear al cliente.");
 		}
@@ -231,7 +226,7 @@ public class MainMenu implements IMainMenuController{
 		RepositoryO o=RepositoryO.getInstance();
 		Repository carta=new Repository();
 		try {
-			o.addOrder(new Order(c, o.getAllOrders().size()+1, carta.searchProduct(GUI.getString("Intrduce el nombre del producto: ")).getId(), GUI.getString("Introduce la dirreccion"), GUI.getBoolean("Introduce si esta entregado: "),GUI.getBoolean("Introduce si esta pagado: ") ));
+			o.addOrder(new Order(c, o.getAllOrders().get(o.getAllOrders().size()-1).getId()+1, carta.searchProduct(GUI.getString("Intrduce el nombre del producto: ")).getId(), GUI.getString("Introduce la dirreccion"), GUI.getBoolean("Introduce si esta entregado: "),GUI.getBoolean("Introduce si esta pagado: ") ));
 		} catch (Exception e) {
 			Syso.print("Error al crear la orden.");
 		}

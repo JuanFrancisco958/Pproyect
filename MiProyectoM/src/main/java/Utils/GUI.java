@@ -1,6 +1,8 @@
 package Utils;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import Clients.RepositoryC;
 import Orders.RepositoryO;
@@ -24,6 +26,25 @@ public class GUI {
 		}
 		return result;
 	}
+	/**
+	 * Obtener edad entre 15-110 años
+	 * @return devuelve un entero.
+	 */
+	public static int  getAge() {
+		Scanner teclado=new Scanner(System.in);
+		int result=-1;
+		
+		do {
+			try {
+				Syso.print("Introduce la edad:");
+				result=teclado.nextInt();
+			} catch (Exception e) {
+				Syso.print("Error al obtener entero.");
+			}
+		} while (result<=15 && result>=110);
+		
+		return result;
+	}
 
 	/***
 	 * Obtener una cadena de caracteres.
@@ -45,6 +66,40 @@ public class GUI {
 		
 		return result;
 	}
+	public static String getDni() {
+		 String result = null;
+	        Scanner miScanner = new Scanner(System.in);
+	        Pattern patron = Pattern.compile("[0-9]{7,8}[A-Z a-z]");
+	        Syso.print("Introduce un DNI correcto: ");
+	        result = miScanner.nextLine();
+	        Matcher mat = patron.matcher(result);
+	        while(!mat.matches() || !validaDNI(result)){
+	           Syso.print("El DNI introducido es incorrecto, por favor introduzca un DNI válido, con la letra en mayuscula.");
+	           Syso.print("Introduce un DNI correcto: ");
+	           result = miScanner.nextLine();
+	           mat = patron.matcher(result);
+	        }
+	        return result;
+	}
+	
+	private static boolean validaDNI(String dni){
+		boolean result=false;
+		if(dni.length()==9) {
+			char letra=dni.charAt(8);
+			String n=dni.substring(0, 8);
+			Integer num=Integer.parseInt(n);
+			if(calcularLetraArray(num)==letra) {
+				result=true;
+			}
+		}
+		return result;
+	}
+	private static char calcularLetraArray(int dni){
+        char caracteres[] = {'T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K','E'};
+        int resto = dni%23;
+        return caracteres[resto];
+   }
+    
 	/**
 	 * 
 	 * @param frase Texto con la informacion deseada.

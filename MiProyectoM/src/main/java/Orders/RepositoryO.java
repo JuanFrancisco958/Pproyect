@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import Clients.RepositoryC;
 import Utils.RepositoryUtil;
+import Vista.Syso;
 
 @XmlRootElement(name = "RepositoryO")
 @XmlAccessorType (XmlAccessType.FIELD)
@@ -111,8 +112,13 @@ public class RepositoryO implements Serializable{
 	public boolean addOrder(Order o) {
 		boolean result=false;
 		if (o!=null && !comandas.contains(o)) {
-			comandas.add(o);
-			o.getClient().addOrder(o.getId());
+			try {
+				comandas.add(o);
+				o.getClient().addOrder(o.getId());
+			} catch (Exception e) {
+				Syso.print("Error al añadir la comnada");
+			}
+			
 		}
 		return result;
 	}

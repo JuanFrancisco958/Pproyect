@@ -152,6 +152,24 @@ public class Repository {
 		    return result;
 		  }
 		  /**
+		   * Obtener producto por id.
+		   * @param id Identificador del producto.
+		   * @return Producto.
+		   */
+		  public Product searchProduct(Integer id) {
+			  Product result = null;
+			  for (Product item : carta) {
+				  if (item.getId()==id) {
+					  result=item;
+				  }
+				
+			  }
+			  if (result==null) {
+				Syso.print("No se encuentra el producto");
+			}
+		    return result;
+		  }
+		  /**
 		   * Obtención de bebida por nombre.
 		   * @param name Nombre de la benida.
 		   * @return Una bebida.

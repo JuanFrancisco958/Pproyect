@@ -103,17 +103,13 @@ public class Syso {
 		System.out.println("|                                                 |");
 		System.out.println("|  - 3: Añadir Producto al Nuevo Pedido:          |");
 		System.out.println("|                                                 |");
-		System.out.println("|  - 4: Añadir Oferta de Menu al Nuevo Pedido:    |");
+		System.out.println("|  - 4: Guardar nuevo pedido:                     |");
 		System.out.println("|                                                 |");
-		System.out.println("|  - 5: Modificar el Nuevo Pedido:                |");
+		System.out.println("|  - 5: Ver total del Nuevo Pedido:               |");
 		System.out.println("|                                                 |");
-		System.out.println("|  - 6: Ver total del Nuevo Pedido:               |");
+		System.out.println("|  - 6: Eliminar Nuevo Pedido:                    |");
 		System.out.println("|                                                 |");
-		System.out.println("|  - 7: Eliminar Nuevo Pedido:                    |");
-		System.out.println("|                                                 |");
-		/*System.out.println("|  - 8: Guardar Nuevo Pedido como Orden:          |");
-		System.out.println("|                                                 |");*/
-		System.out.println("|  - 9: Volver al Menu Principal:                 |");
+		System.out.println("|  - 7: Volver al Menu Principal:                 |");
 		System.out.println("+-------------------------------------------------+");
 	}
 	public static void menuPedidosRealizados() {

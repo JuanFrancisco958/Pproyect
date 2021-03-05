@@ -18,4 +18,22 @@
         <delivered>false</delivered>
         <payed>true</payed>
     </order>
+    <order>
+        <client>
+            <dni>31009229P</dni>
+            <name>juan</name>
+            <age>18</age>
+            <address>C/bonifacio</address>
+            <orders>2</orders>
+            <points>0</points>
+            <u/>
+        </client>
+        <id>2</id>
+        <Products>2</Products>
+        <total>1.1</total>
+        <localDateTime>2021-03-05T22:38:11.772680600</localDateTime>
+        <address>C/Bonifacio</address>
+        <delivered>false</delivered>
+        <payed>true</payed>
+    </order>
 </RepositoryO>

@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import Clients.Client;
 import Products.Product;
+import Products.Repository;
 import Utils.LocalDateAdapter;
 
 /**
@@ -76,13 +77,13 @@ public class Order implements Serializable{
 		this.client = client;
 		Products.add(product);
 		this.address = address;
-		/*this.total=getAllInput();*/
+		this.total=getAllInput(product);
 		this.delivered = delivered;
 		this.payed = payed;
 	}
 
 	//Métodos Getters y Setters de los atributos.
-	protected Integer getId() {
+	public Integer getId() {
 		return id;
 	}
 	protected void setId(Integer id) {
@@ -141,15 +142,31 @@ public class Order implements Serializable{
 	public void deleteProduct(Integer p) {
 		Products.remove(p);
 	}
-	/*public Product getAllInput() {
-		Product result;
-		 if (Products!=null) {
-			for (Product item : Products) {
-				result+=item;
+	public static double getAllInput(Integer o) {
+		Repository c=new Repository();
+		double result=0;
+		 if (o!=null) {
+			
+			result+=c.searchProduct(o).getPrice();
+		
+		}
+		return result;
+	}
+	/**
+	 * Obtiene precio de una orden
+	 * @param o La orden
+	 * @return El precio de todos los productos.
+	 */
+	public static double getMoneyOrder(Order o) {
+		Repository c=new Repository();
+		double result=0;
+		 if (o!=null) {
+			for (Integer item : o.getProducts()) {
+				result+=c.searchProduct(item).getPrice();
 			}
 		}
 		return result;
-	}*/
+	}
 
 	
 	//Método para comparar dos ordenes.
