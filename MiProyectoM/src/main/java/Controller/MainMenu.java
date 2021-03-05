@@ -10,6 +10,7 @@ import Orders.Order;
 import Orders.RepositoryO;
 import Products.Drink;
 import Products.Repository;
+import Utils.GUI;
 import Utils.RepositoryUtil;
 import Vista.Syso;
 
@@ -17,41 +18,99 @@ public class MainMenu implements IMainMenuController{
 
 	public static void main(String[] args) throws ClassNotFoundException  {
 		Repository carta=new Repository();
-		/*RepositoryC clientes=RepositoryC.getInstance();
+		RepositoryC clientes=RepositoryC.getInstance();
 		RepositoryO comandas=RepositoryO.getInstance();
-		importarC(clientes);
-		importarO(comandas);*/
-		//Menu();
+		GUI.importarC(clientes);
+		GUI.importarO(comandas);
+		
 		//clientes.addClient(new Client("1122334455p", "pepe", 22, "C/bonifacio"));
 		//comandas.addOrder(new Order(1,clientes.searchClient("1122334455p"), 4, "C/Bonifacio", false, true));
 		//comandas.addOrder(new Order(clientes.searchClient("1122334455p"), 1, 1, "C/Bonifacio", false, true));
-				
-
-		/*clientes.getAllClients().forEach(item->System.out.println(item));
-		comandas.getAllOrders().forEach(item->System.out.println(item));*/
+		clientes.getAllClients().forEach(item->System.out.println(item));
+		comandas.getAllOrders().forEach(item->System.out.println(item));
 		
+		//run();
+	}
+	public static void run() {
+		Syso.menuDeBienvenida();
+		menuPrincipal();
+	}
+	public static void menuPrincipal() {
+		MainMenu u=new MainMenu();
+				
+		Syso.menuPrincipal();
+		
+		switch (GUI.getint("")) {
+		case 1:
+			menuCartaOferta();
+			break;
+		case 2:
+			menuNuevoPedido();
+			break;
+		case 3:
+			u.menuPedidos();
+			break;
+		case 4:
+			u.menuClientes();
+			break;
+		case 5:
+			u.menuFinanzas();
+			break;
+		case 6:
+			u.saveAllAndClose();
+			break;
+		case 7:
+			Syso.menuDeDespedida();
+			break;
+
+		default:
+			break;
+		}
 	}
 	
-	
-	public static void Menu() {
+	public static void menuCartaOferta() {
+		Syso.menuMenuOferta();
+		Repository c=new Repository();
+
+		switch (GUI.getint("")) {
+		case 1:
+			Syso.printCarta();
+			menuCartaOferta();
+			break;
+		case 2:
+			Syso.printF(c.getAllFoods());
+			menuCartaOferta();
+			break;
+		case 3:
+			Syso.printD(c.getAllDrinks());
+			menuCartaOferta();
+			break;
+		case 4:
+			Syso.printP(c.getBundleProducts());
+			menuCartaOferta();
+			break;
+		case 5:
+			menuPrincipal();
+			break;
+
+		default:menuPrincipal();
+			break;
+		}
+	}
+	public static void menuNuevoPedido() {
 		Syso.menuP();
 		MainMenu u=new MainMenu();
 		RepositoryC c=RepositoryC.getInstance();
-		RepositoryO o=RepositoryO.getInstance();
-		importarC(c);
-		importarO(o);
-		switch (getint("Elige una opcion")) {
-		case 0:
-			u.newOrder(c.searchClient(getString("Introduce Dni:")), LocalDate.now());
-			break;
+		
+		switch (GUI.getint("")) {
 		case 1:
-			//u.changeOrder(c);
+			u.newOrder(c.searchClient(GUI.getString("Introduce el dni:")), LocalDate.now());
 			break;
 		case 2:
-			//u.changeOrder(d);
+			u.newClient();
 			break;
 		case 3:
-			//u.changeOrder(c, d);
+			
 			break;
 		case 4:
 			
@@ -68,100 +127,113 @@ public class MainMenu implements IMainMenuController{
 		case 8:
 			
 			break;
-		case 9:
-			
+		case 9:menuPrincipal();
 			break;
-		case 10:
-			
+
+		default:menuPrincipal();
 			break;
-		case 11:
-			
+		}
+	}
+	public static void menuPedidos() {
+		Syso.menuP();
+		MainMenu u=new MainMenu();
+		RepositoryC c=RepositoryC.getInstance();
+		
+		switch (GUI.getint("")) {
+		case 1:
+			Syso.printOrders();
 			break;
-		case 12:
-			u.saveAllAndClose();
+		case 2:
+			u.viewOrdersNotPayed();
+			break;
+		case 3:
+			u.viewOrdersPendingDelivered();
+			break;
+		case 4:
+			u.deleteOrder(c.searchClient(GUI.getString("Introduce dni:")));
+			break;
+		case 5:
+			menuPrincipal();
 			break;
 		
+		default:menuPrincipal();
+			break;
+		}
+	}
+	public static void menuClientes() {
+		Syso.menuP();
+		MainMenu u=new MainMenu();
+		RepositoryC c=RepositoryC.getInstance();
+		
+		switch (GUI.getint("")) {
+		case 1:
+			u.newClient();
+			break;
+		case 2:
+			u.newClient();
+			break;
+		case 3:
+			
+			break;
+		case 4:
+			GUI.exportarC(c);
+			break;
+		case 5:
+			menuPrincipal();
+			break;
 
-		default:
+		default:menuPrincipal();
+			break;
+		}
+	}
+	public static void menuFinanzas() {
+		Syso.menuP();
+		MainMenu u=new MainMenu();
+		RepositoryC c=RepositoryC.getInstance();
+		
+		switch (GUI.getint("")) {
+		case 1:
+			u.cashTotal();
+			break;
+		case 2:
+			u.cashThisMonht();
+			break;
+		case 3:
+			u.cashToday();
+			break;
+		case 4:
+			u.cashNoPayed();
+			break;
+		case 5:
+			menuPrincipal();
+			break;
+
+		default:menuPrincipal();
 			break;
 		}
 	}
 	
 	
-	
-	/**
-	 * Obtener un entero introducido por teclado
-	 * @param frase Texto con la informacion deseada.
-	 * @return devuelve un entero introducido por teclado
-	 */
-	public static int  getint(String frase) {
-		Scanner teclado=new Scanner(System.in);
-		int result=-1;
-		
+	public void newClient() {
+		RepositoryC c=RepositoryC.getInstance();
 		try {
-			Syso.print(frase);
-			result=teclado.nextInt();
+			c.addClient(new Client(GUI.getString("Introduce el dni:"), GUI.getString("Introduce el nombre:"), GUI.getint("Introduce edad:"), GUI.getString("Introduce direccion:")));
 		} catch (Exception e) {
-			Syso.print("Error al obtener entero.");
+			Syso.print("Error al crear al cliente.");
 		}
-		return result;
+		
 	}
-
-	/***
-	 * Obtener una cadena de caracteres.
-	 * @param frase Texto con la informacion deseada.
-	 * @return devuelve un string introducido por teclado
-	 */
-	public static String  getString(String frase) {
-		Scanner teclado=new Scanner(System.in);
-		String result=null;
+	public void cashNoPayed() {
 		
-		if (result==null) {
-			try {
-				Syso.print(frase);
-				result=teclado.nextLine();
-			} catch (Exception e) {
-				Syso.print("Error al obtener string.");
-			}
-		}
-		
-		return result;
 	}
-	/**
-	 * 
-	 * @param frase Texto con la informacion deseada.
-	 * @return devuelve un boleano a decisión del usuario.
-	 */
-	public static Boolean  getBoolean(String frase) {
-		Scanner teclado=new Scanner(System.in);
-		Boolean result=null;
-		
-		if (result==null) {
-			try {
-				Syso.print(frase);
-				Syso.print("0=true 1=false");
-
-				if (teclado.nextInt()==1) {
-					result=true;
-				}else {
-					result=false;
-				}
-			} catch (Exception e) {
-				Syso.print("Error al obtener booleano.");
-			}
-		}
-		
-		return result;
-	} 
-
 	@Override
 	public void newOrder(Client c, LocalDate d) {
 		RepositoryO o=RepositoryO.getInstance();
 		Repository carta=new Repository();
 		try {
-			o.addOrder(new Order(c, o.getAllOrders().size()+1, carta.searchProduct(getString("Intrduce el nombre del producto: ")).getId(), getString("Introduce la dirreccion"), getBoolean("Introduce si esta entregado: "),getBoolean("Introduce si esta pagado: ") ));
+			o.addOrder(new Order(c, o.getAllOrders().size()+1, carta.searchProduct(GUI.getString("Intrduce el nombre del producto: ")).getId(), GUI.getString("Introduce la dirreccion"), GUI.getBoolean("Introduce si esta entregado: "),GUI.getBoolean("Introduce si esta pagado: ") ));
 		} catch (Exception e) {
-			Syso.print("Error al crea la orden.");
+			Syso.print("Error al crear la orden.");
 		}
 		
 	}
@@ -226,42 +298,25 @@ public class MainMenu implements IMainMenuController{
 	@Override
 	public void viewOrdersNotPayed() {
 		RepositoryO o=RepositoryO.getInstance();
+		Syso.printO(o.getOrdersNoPayed());
 		
 	}
 
 	@Override
 	public void viewOrdersPendingDelivered() {
 		RepositoryO o=RepositoryO.getInstance();
-		
+		Syso.printO(o.getOrdersNoDelivered());
 	}
 
 	@Override
 	public void saveAllAndClose() {
 		RepositoryC c=RepositoryC.getInstance();
 		RepositoryO o=RepositoryO.getInstance();
-		exportarC(c);
-		exportarO(o);
+		GUI.exportarC(c);
+		GUI.exportarO(o);
 	}
-	public static void printOrders() {
-		RepositoryO o=RepositoryO.getInstance();
-		o.getAllOrders().forEach(item->System.out.println(item));
-	}
-	public static void printClients() {
-		RepositoryC c=RepositoryC.getInstance();
-		c.getAllClients().forEach(item->System.out.println(item));
-	}
+	
 
-	public static void exportarC(RepositoryC c) {
-		RepositoryUtil.saveFile(c.getInstance());
-	}
-	public static void exportarO(RepositoryO o) {
-		RepositoryUtil.saveFileO(o.getInstance());
-	}
-	public static void importarC(RepositoryC c) {
-		c.setClientes(RepositoryUtil.loadFile());
-	}
-	public static void importarO(RepositoryO o) {
-		o.setcomandas(RepositoryUtil.loadFileO());
-	}
+	
 	
 }

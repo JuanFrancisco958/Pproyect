@@ -27,7 +27,6 @@ public class RepositoryO implements Serializable{
 	
 	
 	private RepositoryO() {
-		//importar();
 	}
 	public static RepositoryO getInstance(){
         if(_instance==null){

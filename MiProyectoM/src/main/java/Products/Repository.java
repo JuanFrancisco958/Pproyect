@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import Vista.Syso;
+
 
 /**
  * Repositorio de productos.
@@ -121,6 +123,16 @@ public class Repository {
 			  
 		    return null;
 		  }
+		  public List<Product> getBundleProducts() {
+				  List<Product> result=new ArrayList<>();
+				  for (Product product : getAllProducts()) {
+					if (!product.getBundle().isEmpty()) {
+						result.add(product);
+					}
+				}
+				  
+			    return result;
+			  }
 		  /**
 		   * Obtener producto por su nombre.
 		   * @param name Nombre del producto.
@@ -134,6 +146,9 @@ public class Repository {
 				  }
 				
 			  }
+			  if (result==null) {
+				Syso.print("No se encuentra el producto");
+			}
 		    return result;
 		  }
 		  /**

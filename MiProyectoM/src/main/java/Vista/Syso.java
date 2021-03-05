@@ -1,5 +1,16 @@
 package Vista;
 
+import java.util.List;
+
+import Clients.Client;
+import Clients.RepositoryC;
+import Orders.Order;
+import Orders.RepositoryO;
+import Products.Drink;
+import Products.Food;
+import Products.Product;
+import Products.Repository;
+
 public class Syso {
 	public static void menuP() {
 		System.out.println("+-----------------------------------------+");
@@ -38,10 +49,7 @@ public class Syso {
 		System.out.println("|  Pulse Intro...                                 |");
 		System.out.println("|                                                 |");
 		System.out.println("+-------------------------------------------------+");
-
-
 	}
-	
 	public static void menuPrincipal() {
 		System.out.println("+-------------------------------------------------+");
 		System.out.println("|  Menu Principal                                 |");
@@ -52,11 +60,11 @@ public class Syso {
 		System.out.println("|                                                 |");
 		System.out.println("|  - 2: Realizar un Nuevo Pedido:                 |");
 		System.out.println("|                                                 |");
-		System.out.println("|  - 3: Pedidos Realizados:                       |");
+		System.out.println("|  - 3: Menu Pedidos :                            |");
 		System.out.println("|                                                 |");
-		System.out.println("|  - 4: Clientes:                                 |");
+		System.out.println("|  - 4: Menu Clientes:                            |");
 		System.out.println("|                                                 |");
-		System.out.println("|  - 5: Finanzas:                                 |");
+		System.out.println("|  - 5: Menu Finanzas:                            |");
 		System.out.println("|                                                 |");
 		System.out.println("|  - 6: Guardar Cambios:                          |");
 		System.out.println("|                                                 |");
@@ -80,18 +88,9 @@ public class Syso {
 		System.out.println("|                                                 |");
 		System.out.println("|  - 4: Ver Ofertas de Menus:                     |");
 		System.out.println("|                                                 |");
-		System.out.println("|  - 5: Introducir Nuevo Producto en el Menu:     |");
-		System.out.println("|                                                 |");
-		System.out.println("|  - 6: Eliminar Producto del Menu:               |");
-		System.out.println("|                                                 |");
-		System.out.println("|  - 7: Guardar Cambios:                          |");
-		System.out.println("|                                                 |");
-		System.out.println("|  - 8: Volver al Menu Principal:                 |");
+		System.out.println("|  - 5: Volver al Menu Principal:                 |");
 		System.out.println("+-------------------------------------------------+");
-
-
 	}
-	
 	public static void menuNuevoPedido() {
 		System.out.println("+-------------------------------------------------+");
 		System.out.println("|  Menu de Nuevo Pedido                           |");
@@ -112,17 +111,14 @@ public class Syso {
 		System.out.println("|                                                 |");
 		System.out.println("|  - 7: Eliminar Nuevo Pedido:                    |");
 		System.out.println("|                                                 |");
-		System.out.println("|  - 8: Guardar Nuevo Pedido como Orden:          |");
-		System.out.println("|                                                 |");
+		/*System.out.println("|  - 8: Guardar Nuevo Pedido como Orden:          |");
+		System.out.println("|                                                 |");*/
 		System.out.println("|  - 9: Volver al Menu Principal:                 |");
 		System.out.println("+-------------------------------------------------+");
-
-
 	}
-	
 	public static void menuPedidosRealizados() {
 		System.out.println("+-------------------------------------------------+");
-		System.out.println("|  Menu de Pedidos Realizados                     |");
+		System.out.println("|  Menu de Pedidos                                |");
 		System.out.println("+-------------------------------------------------+");
 		System.out.println("|  Eliga un numero para realizar una accion:      |");
 		System.out.println("|                                                 |");
@@ -136,35 +132,28 @@ public class Syso {
 		System.out.println("|                                                 |");
 		System.out.println("|  - 5: Volver al Menu Principal:                 |");
 		System.out.println("+-------------------------------------------------+");
-
-
 	}
-	
 	public static void menuClientes() {
 		System.out.println("+-------------------------------------------------+");
 		System.out.println("|  Menu de Nuevos Clientes                        |");
 		System.out.println("+-------------------------------------------------+");
 		System.out.println("|  Eliga un numero para realizar una accion:      |");
 		System.out.println("|                                                 |");
-		System.out.println("|  - 1: Añadir Nombre:                            |");
+		System.out.println("|  - 1: Añadir nuevo cliente:                     |");
 		System.out.println("|                                                 |");
-		System.out.println("|  - 2: Añadir DNI:                               |");
+		System.out.println("|  - 2: Añadir Direccion:                         |");
 		System.out.println("|                                                 |");
-		System.out.println("|  - 3: Añadir Direccion:                         |");
+		System.out.println("|  - 3: Añadir Edad:                              |");
 		System.out.println("|                                                 |");
-		System.out.println("|  - 4: Añadir Edad:                              |");
-		System.out.println("|                                                 |");
-		System.out.println("|  - 5: Guardar Nuevo Cliente:                    |");
+		System.out.println("|  - 4: Guardar Nuevo Cliente:                    |");
 		System.out.println("|                                                 |");
 		System.out.println("|  - 5: Volver al Menu Principal:                 |");
 		System.out.println("+-------------------------------------------------+");
-
-
 	}
 	
 	public static void menuFinanzas() {
 		System.out.println("+-------------------------------------------------+");
-		System.out.println("|  Menu Principal                                 |");
+		System.out.println("|  Menu Finanzas                                  |");
 		System.out.println("+-------------------------------------------------+");
 		System.out.println("|  Eliga un numero para accedear a:               |");
 		System.out.println("|                                                 |");
@@ -181,7 +170,49 @@ public class Syso {
 
 
 	}
+	public static void menuDeDespedida() {
+		System.out.println("+-------------------------------------------------+");
+		System.out.println("|  Apagando Programa Restaurante                  |");
+		System.out.println("+-------------------------------------------------+");
+		System.out.println("|                                                 |");
+		System.out.println("|  Cerrando programa...                           |");
+		System.out.println("|                                                 |");
+		System.out.println("|  Cerrado.                                       |");
+		System.out.println("|                                                 |");
+		System.out.println("+-------------------------------------------------+");
+
+
+	}
+	public static void printOrders() {
+		RepositoryO o=RepositoryO.getInstance();
+		o.getAllOrders().forEach(item->System.out.println(item));
+	}
+	public static void printClients() {
+		RepositoryC c=RepositoryC.getInstance();
+		c.getAllClients().forEach(item->System.out.println(item));
+	}
+	public static void printCarta() {
+		Repository c=new Repository();
+		c.getAllProducts().forEach(item->System.out.println(item));
+	}
 	public static void print(String frase) {
 		System.out.println(frase);
+	}
+	public static void printC(List<Client> c) {
+		c.forEach(item->System.out.println(item));
+	}
+	public static void printO(List<Order> c) {
+		c.forEach(item->System.out.println(item));
+	}
+	public static void printP(List<Product> c) {
+		c.forEach(item->System.out.println(item));
+	}public static void printF(List<Food> c) {
+		c.forEach(item->System.out.println(item));
+	}
+	public static void printD(List<Drink> c) {
+		c.forEach(item->System.out.println(item));
+	}
+	public static void printI(List<Integer> c) {
+		c.forEach(item->System.out.println(item));
 	}
 }
