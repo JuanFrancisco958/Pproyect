@@ -150,7 +150,6 @@ public class Syso {
 		System.out.println("|  - 5: Volver al Menu Principal:                 |");
 		System.out.println("+-------------------------------------------------+");
 	}
-	
 	public static void menuFinanzas() {
 		System.out.println("+-------------------------------------------------+");
 		System.out.println("|  Menu Finanzas                                  |");
@@ -183,6 +182,8 @@ public class Syso {
 
 
 	}
+	
+	
 	public static void printOrders() {
 		RepositoryO o=RepositoryO.getInstance();
 		o.getAllOrders().forEach(item->System.out.println(item));

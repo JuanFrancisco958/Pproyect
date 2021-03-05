@@ -98,7 +98,7 @@ public class MainMenu implements IMainMenuController{
 		}
 	}
 	public static void menuNuevoPedido() {
-		Syso.menuP();
+		Syso.menuNuevoPedido();
 		MainMenu u=new MainMenu();
 		RepositoryC c=RepositoryC.getInstance();
 		
@@ -135,7 +135,7 @@ public class MainMenu implements IMainMenuController{
 		}
 	}
 	public static void menuPedidos() {
-		Syso.menuP();
+		Syso.menuPedidosRealizados();
 		MainMenu u=new MainMenu();
 		RepositoryC c=RepositoryC.getInstance();
 		
@@ -161,7 +161,7 @@ public class MainMenu implements IMainMenuController{
 		}
 	}
 	public static void menuClientes() {
-		Syso.menuP();
+		Syso.menuClientes();
 		MainMenu u=new MainMenu();
 		RepositoryC c=RepositoryC.getInstance();
 		
@@ -187,7 +187,7 @@ public class MainMenu implements IMainMenuController{
 		}
 	}
 	public static void menuFinanzas() {
-		Syso.menuP();
+		Syso.menuFinanzas();
 		MainMenu u=new MainMenu();
 		RepositoryC c=RepositoryC.getInstance();
 		
